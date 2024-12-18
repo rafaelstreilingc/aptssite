@@ -161,6 +161,39 @@
         .spotify-link a:hover {
             color: #1a9b4c;
         }
+
+        /* Cores para os álbuns */
+        .debut {
+            background-color: #224236; /* Te Papa Green */
+            color: #fff;
+        }
+
+        .fearless {
+            background-color: #d9b777; /* Harvest Gold */
+            color: #2d2d2d;
+        }
+
+        .speakNow {
+            background-color: #e1ab8a; /* Tumbleweed */
+            color: #2a2a2a;
+        }
+
+        /* Definições de fundo para as informações de cada portal */
+        .album-info.debut {
+            background-color: #224236; /* Te Papa Green */
+            color: #fff;
+        }
+
+        .album-info.fearless {
+            background-color: #d9b777; /* Harvest Gold */
+            color: #2d2d2d;
+        }
+
+        .album-info.speakNow {
+            background-color: #e1ab8a; /* Tumbleweed */
+            color: #2a2a2a;
+        }
+
     </style>
 </head>
 <body>
@@ -168,9 +201,9 @@
         <h1>Aliança de Portais de Álbuns da Taylor Swift (APTS)</h1>
         
         <div class="album-list">
-            <img class="album-img" src="https://pbs.twimg.com/profile_images/1847912915430481920/pFAyL17D_400x400.jpg" alt="Debut Portal" onclick="changeAlbum('debut')">
-            <img class="album-img" src="https://pbs.twimg.com/profile_images/1829257866215104512/dJ3v82yp_400x400.jpg" alt="Fearless Portal" onclick="changeAlbum('fearless')">
-            <img class="album-img" src="https://pbs.twimg.com/profile_images/1847831657136480256/McmxiSuE_400x400.jpg" alt="Speak Now Portal" onclick="changeAlbum('speakNow')">
+            <img class="album-img debut" src="https://pbs.twimg.com/profile_images/1847912915430481920/pFAyL17D_400x400.jpg" alt="Debut Portal" onclick="changeAlbum('debut')">
+            <img class="album-img fearless" src="https://pbs.twimg.com/profile_images/1829257866215104512/dJ3v82yp_400x400.jpg" alt="Fearless Portal" onclick="changeAlbum('fearless')">
+            <img class="album-img speakNow" src="https://pbs.twimg.com/profile_images/1847831657136480256/McmxiSuE_400x400.jpg" alt="Speak Now Portal" onclick="changeAlbum('speakNow')">
         </div>
 
         <div class="album-info" id="album-info">
@@ -207,7 +240,8 @@
                     twitter: 'https://x.com/portaldebutbr',
                     twitterImg: 'https://pbs.twimg.com/profile_images/1847912915430481920/pFAyL17D_400x400.jpg',
                     description: 'O portal Debut (Self-Titled) traz o primeiro álbum de Taylor Swift. Aqui, você encontra todo o conteúdo sobre esse marco da carreira de Taylor, que lançou a cantora ao estrelato com seu estilo country único.',
-                    spotifyLink: 'https://open.spotify.com/intl-pt/album/7mzrIsaAjnXihW3InKjlC3'
+                    spotifyLink: 'https://open.spotify.com/intl-pt/album/7mzrIsaAjnXihW3InKjlC3',
+                    colorClass: 'debut'
                 },
                 fearless: {
                     name: 'Fearless (Taylor\'s Version)',
@@ -215,7 +249,8 @@
                     twitter: 'https://x.com/PortalFearless_',
                     twitterImg: 'https://pbs.twimg.com/profile_images/1829257866215104512/dJ3v82yp_400x400.jpg',
                     description: 'O portal Fearless traz o segundo álbum de Taylor, um dos mais aclamados, trazendo o sucesso "Love Story" e a transição para o pop. Descubra tudo sobre esse momento crucial da carreira da cantora.',
-                    spotifyLink: 'https://open.spotify.com/album/4hDok0OAJd57SGIT8xuWJH?autoplay=true'
+                    spotifyLink: 'https://open.spotify.com/album/4hDok0OAJd57SGIT8xuWJH?autoplay=true',
+                    colorClass: 'fearless'
                 },
                 speakNow: {
                     name: 'Speak Now (Taylor\'s Version)',
@@ -223,7 +258,8 @@
                     twitter: 'https://x.com/Portalspeaknow',
                     twitterImg: 'https://pbs.twimg.com/profile_images/1847831657136480256/McmxiSuE_400x400.jpg',
                     description: 'Explore o portal Speak Now, onde Taylor Swift escreveu todas as faixas sozinha. Este álbum conta com histórias emocionantes e letras profundas, marcando um novo capítulo na carreira de Taylor.',
-                    spotifyLink: 'https://open.spotify.com/album/5AEDGbliTTfjOB8TSm1sxt'
+                    spotifyLink: 'https://open.spotify.com/album/5AEDGbliTTfjOB8TSm1sxt',
+                    colorClass: 'speakNow'
                 }
             };
 
@@ -244,7 +280,8 @@
             // Atualizar link do Spotify
             spotifyLink.querySelector('a').href = albums[album].spotifyLink;
 
-            // Exibir as informações do portal
+            // Alterar o fundo e a cor do portal
+            albumInfo.className = `album-info ${albums[album].colorClass}`;
             albumInfo.style.display = 'block';
         }
     </script>
