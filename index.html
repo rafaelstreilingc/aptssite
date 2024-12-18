@@ -14,11 +14,11 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #f0f0f0;
+            background-color: #f7f7f7;
             color: #333;
-            transition: background-color 0.5s ease, color 0.5s ease;
             margin: 0;
             padding: 20px;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         .container {
@@ -61,9 +61,11 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.5s ease;
             background-color: #fff;
             margin-top: 20px;
+            text-align: center;
+            display: none; /* Inicia escondido */
+            transition: background-color 0.5s ease;
         }
 
         #album-name {
@@ -119,6 +121,20 @@
             margin-right: auto;
         }
 
+        .album-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .album-img:hover {
+            transform: scale(1.1);
+        }
+
         .album-info img {
             max-width: 100%;
             border-radius: 8px;
@@ -129,6 +145,22 @@
             color: #333;
             margin-bottom: 10px;
         }
+
+        .spotify-link {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1db954;
+        }
+
+        .spotify-link a {
+            text-decoration: none;
+            color: #1db954;
+        }
+
+        .spotify-link a:hover {
+            color: #1a9b4c;
+        }
     </style>
 </head>
 <body>
@@ -136,13 +168,13 @@
         <h1>Aliança de Portais de Álbuns da Taylor Swift (APTS)</h1>
         
         <div class="album-list">
-            <button class="album-btn" onclick="changeAlbum('debut')">Debut (Self-Titled)</button>
-            <button class="album-btn" onclick="changeAlbum('fearless')">Fearless (Taylor's Version)</button>
-            <button class="album-btn" onclick="changeAlbum('speakNow')">Speak Now (Taylor's Version)</button>
+            <img class="album-img" src="https://pbs.twimg.com/profile_images/1847912915430481920/pFAyL17D_400x400.jpg" alt="Debut Portal" onclick="changeAlbum('debut')">
+            <img class="album-img" src="https://pbs.twimg.com/profile_images/1829257866215104512/dJ3v82yp_400x400.jpg" alt="Fearless Portal" onclick="changeAlbum('fearless')">
+            <img class="album-img" src="https://pbs.twimg.com/profile_images/1847831657136480256/McmxiSuE_400x400.jpg" alt="Speak Now Portal" onclick="changeAlbum('speakNow')">
         </div>
 
         <div class="album-info" id="album-info">
-            <h2 id="album-name">Escolha um Álbum</h2>
+            <h2 id="album-name">Escolha um Portal</h2>
             <iframe id="album-iframe" width="300" height="380" frameborder="0" allow="encrypted-media"></iframe>
 
             <div class="twitter-profile" id="twitter-profile">
@@ -152,6 +184,9 @@
             </div>
 
             <div id="album-description"></div>
+            <div class="spotify-link" id="spotify-link">
+                <a href="" target="_blank">Ouça no Spotify</a>
+            </div>
         </div>
     </div>
 
@@ -163,6 +198,7 @@
             let twitterLink = document.getElementById('twitter-link');
             let albumInfo = document.getElementById('album-info');
             let albumDescription = document.getElementById('album-description');
+            let spotifyLink = document.getElementById('spotify-link');
             
             const albums = {
                 debut: {
@@ -170,28 +206,28 @@
                     iframe: 'https://open.spotify.com/embed/intl-pt/album/7mzrIsaAjnXihW3InKjlC3',
                     twitter: 'https://x.com/portaldebutbr',
                     twitterImg: 'https://pbs.twimg.com/profile_images/1847912915430481920/pFAyL17D_400x400.jpg',
-                    colors: ['#224236', '#c99f7c', '#dadfd2', '#67654c', '#563e2d'],
-                    description: 'Este é o álbum de estreia de Taylor Swift, lançado em 2006. Com um estilo country, o álbum reflete as experiências de Swift enquanto jovem, abordando temas como amor, amizade e a vida no interior.'
+                    description: 'O portal Debut (Self-Titled) traz o primeiro álbum de Taylor Swift. Aqui, você encontra todo o conteúdo sobre esse marco da carreira de Taylor, que lançou a cantora ao estrelato com seu estilo country único.',
+                    spotifyLink: 'https://open.spotify.com/intl-pt/album/7mzrIsaAjnXihW3InKjlC3'
                 },
                 fearless: {
                     name: 'Fearless (Taylor\'s Version)',
                     iframe: 'https://open.spotify.com/embed/album/4hDok0OAJd57SGIT8xuWJH?autoplay=true',
                     twitter: 'https://x.com/PortalFearless_',
                     twitterImg: 'https://pbs.twimg.com/profile_images/1829257866215104512/dJ3v82yp_400x400.jpg',
-                    colors: ['#d9b777', '#efdaa6', '#604124', '#c39d5e', '#a7834a'],
-                    description: '“Fearless” é o segundo álbum de estúdio de Taylor Swift, lançado em 2008. O álbum contém hits como "Love Story" e "You Belong with Me", consolidando a transição de Taylor do country para o pop.'
+                    description: 'O portal Fearless traz o segundo álbum de Taylor, um dos mais aclamados, trazendo o sucesso "Love Story" e a transição para o pop. Descubra tudo sobre esse momento crucial da carreira da cantora.',
+                    spotifyLink: 'https://open.spotify.com/album/4hDok0OAJd57SGIT8xuWJH?autoplay=true'
                 },
                 speakNow: {
                     name: 'Speak Now (Taylor\'s Version)',
                     iframe: 'https://open.spotify.com/embed/album/5AEDGbliTTfjOB8TSm1sxt',
                     twitter: 'https://x.com/Portalspeaknow',
                     twitterImg: 'https://pbs.twimg.com/profile_images/1847831657136480256/McmxiSuE_400x400.jpg',
-                    colors: ['#e1ab8a', '#20171b', '#7b395a', '#925291', '#572160'],
-                    description: 'Lançado em 2010, "Speak Now" é o terceiro álbum de Taylor Swift. Todo o álbum foi escrito por Taylor sozinha, e é conhecido por suas letras profundas e pessoais, abordando temas como amor, arrependimento e crescimento.'
+                    description: 'Explore o portal Speak Now, onde Taylor Swift escreveu todas as faixas sozinha. Este álbum conta com histórias emocionantes e letras profundas, marcando um novo capítulo na carreira de Taylor.',
+                    spotifyLink: 'https://open.spotify.com/album/5AEDGbliTTfjOB8TSm1sxt'
                 }
             };
 
-            // Atualizar nome do álbum
+            // Atualizar nome do portal
             albumName.textContent = albums[album].name;
 
             // Atualizar iframe do Spotify
@@ -202,14 +238,14 @@
             twitterLink.href = albums[album].twitter;
             twitterLink.textContent = "Ir para o Twitter";
 
-            // Mudar a cor de fundo da página e do álbum
-            const [color1, color2, color3, color4, color5] = albums[album].colors;
-            albumInfo.style.backgroundColor = color1;
-            document.body.style.backgroundColor = color2;
-            document.body.style.color = color3;
-
-            // Atualizar descrição do álbum
+            // Atualizar descrição do portal
             albumDescription.textContent = albums[album].description;
+
+            // Atualizar link do Spotify
+            spotifyLink.querySelector('a').href = albums[album].spotifyLink;
+
+            // Exibir as informações do portal
+            albumInfo.style.display = 'block';
         }
     </script>
 </body>
